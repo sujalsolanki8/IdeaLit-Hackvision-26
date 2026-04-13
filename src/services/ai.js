@@ -1,6 +1,10 @@
 const API_BASE_URL = 'http://localhost:3000/api';
 
+// Fake AI thinking delay (1.5 s) — keeps the Loader animation meaningful
+const fakeDelay = (ms = 1500) => new Promise((r) => setTimeout(r, ms));
+
 export const analyzeIdeaWithAI = async (ideaData) => {
+  await fakeDelay(1500);
   try {
     const response = await fetch(`${API_BASE_URL}/validate-idea`, {
       method: 'POST',
@@ -15,12 +19,13 @@ export const analyzeIdeaWithAI = async (ideaData) => {
 
     return await response.json();
   } catch (error) {
-    console.error("Analysis Error:", error);
+    console.error('Analysis Error:', error);
     throw error;
   }
 };
 
 export const improveIdeaWithAI = async (title) => {
+  await fakeDelay(1200);
   try {
     const response = await fetch(`${API_BASE_URL}/improve-idea`, {
       method: 'POST',
@@ -31,12 +36,13 @@ export const improveIdeaWithAI = async (title) => {
     if (!response.ok) throw new Error('Failed to improve idea.');
     return await response.json();
   } catch (error) {
-    console.error("Improvement Error:", error);
+    console.error('Improvement Error:', error);
     throw error;
   }
 };
 
 export const generatePitchWithAI = async (title) => {
+  await fakeDelay(1000);
   try {
     const response = await fetch(`${API_BASE_URL}/generate-pitch`, {
       method: 'POST',
@@ -48,7 +54,7 @@ export const generatePitchWithAI = async (title) => {
     const data = await response.json();
     return data.text;
   } catch (error) {
-    console.error("Pitch Error:", error);
+    console.error('Pitch Error:', error);
     throw error;
   }
 };

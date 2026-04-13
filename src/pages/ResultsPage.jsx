@@ -8,7 +8,7 @@ import { analyzeIdeaWithAI, generatePitchWithAI, improveIdeaWithAI } from '../se
 import { motion } from 'framer-motion';
 import { 
   ArrowLeft, CheckCircle2, AlertTriangle, 
-  Lightbulb, ShieldAlert, Target, Activity,
+  Lightbulb, ShieldAlert, Target, Activity, Sparkles,
   TrendingUp, TrendingDown, ArrowRight, Wand2, Mic, Copy, Check
 } from 'lucide-react';
 
@@ -79,6 +79,7 @@ export function ResultsPage() {
       setLoading(true);
       try {
         const data = await analyzeIdeaWithAI(ideaData);
+        console.log('✅ API Response:', data); // debug
         if (isMounted) {
           setResult(data);
           setLoading(false);
@@ -259,7 +260,7 @@ export function ResultsPage() {
                       <TrendingUp className="w-5 h-5" /> Strengths
                     </h4>
                     <ul className="space-y-3">
-                      {result.swot.strengths.map((item, i) => (
+                      {(result.swot?.strengths ?? []).map((item, i) => (
                         <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
                           <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" /> <span>{item}</span>
                         </li>
@@ -271,7 +272,7 @@ export function ResultsPage() {
                       <TrendingDown className="w-5 h-5" /> Weaknesses
                     </h4>
                     <ul className="space-y-3">
-                      {result.swot.weaknesses.map((item, i) => (
+                      {(result.swot?.weaknesses ?? []).map((item, i) => (
                         <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
                           <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0" /> <span>{item}</span>
                         </li>
@@ -283,7 +284,7 @@ export function ResultsPage() {
                       <Lightbulb className="w-5 h-5" /> Opportunities
                     </h4>
                     <ul className="space-y-3">
-                      {result.swot.opportunities.map((item, i) => (
+                      {(result.swot?.opportunities ?? []).map((item, i) => (
                         <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
                           <ArrowRight className="w-5 h-5 text-blue-500 shrink-0" /> <span>{item}</span>
                         </li>
@@ -295,7 +296,7 @@ export function ResultsPage() {
                       <ShieldAlert className="w-5 h-5" /> Threats
                     </h4>
                     <ul className="space-y-3">
-                      {result.swot.threats.map((item, i) => (
+                      {(result.swot?.threats ?? []).map((item, i) => (
                         <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
                           <ShieldAlert className="w-5 h-5 text-red-500 shrink-0" /> <span>{item}</span>
                         </li>
@@ -317,7 +318,7 @@ export function ResultsPage() {
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3 list-disc pl-5 text-sm text-slate-700 marker:text-red-400">
-                    {result.risks.map((risk, i) => (
+                    {(result.risks ?? []).map((risk, i) => (
                       <li key={i} className="pl-1">{risk}</li>
                     ))}
                   </ul>
@@ -334,7 +335,7 @@ export function ResultsPage() {
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3 list-disc pl-5 text-sm text-primary-900 marker:text-primary-400">
-                    {result.suggestions.map((sug, i) => (
+                    {(result.suggestions ?? []).map((sug, i) => (
                       <li key={i} className="pl-1">{sug}</li>
                     ))}
                   </ul>
@@ -350,12 +351,12 @@ export function ResultsPage() {
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-3">
-                  {result.similar_products.map((prod, i) => (
+                  {(result.similar_products ?? []).map((prod, i) => (
                     <span key={i} className="px-4 py-2 bg-slate-100 text-slate-700 text-sm rounded-lg font-medium border border-slate-200 hover:border-slate-300 hover:bg-slate-200 transition-colors cursor-default">
                       {prod}
                     </span>
                   ))}
-                  {result.similar_products.length === 0 && (
+                  {(result.similar_products ?? []).length === 0 && (
                     <span className="text-sm text-slate-500">No direct competitors found.</span>
                   )}
                 </div>
