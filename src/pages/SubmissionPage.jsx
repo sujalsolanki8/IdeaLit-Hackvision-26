@@ -70,10 +70,22 @@ export function SubmissionPage() {
   const validate = () => {
     const newErrors = {};
     if (!formData.title.trim()) newErrors.title = 'Title is required';
-    if (!formData.description.trim()) newErrors.description = 'Description is required';
-    else if (formData.description.length < 20) newErrors.description = 'Please provide more detail (min 20 characters)';
+
+    if (!formData.description.trim()) {
+      newErrors.description = 'Description is required';
+    } else if (formData.description.length < 15) {
+      newErrors.description = 'Please provide more detail (min 15 characters)';
+    } else if (/(.)\1{5,}/.test(formData.description)) {
+      newErrors.description = 'Input contains repeated characters. Please enter a meaningful description.';
+    } else if (/qwerty|asdfgh|zxcvbn|123456|abcdef/i.test(formData.description)) {
+      newErrors.description = 'Input looks like keyboard spam. Please describe a real idea.';
+    } else {
+      const uniqueWords = new Set(formData.description.toLowerCase().split(/\s+/).filter(w => w.length > 2));
+      if (uniqueWords.size < 3) newErrors.description = 'Please use at least 3 distinct meaningful words.';
+    }
+
     if (!formData.targetAudience.trim()) newErrors.targetAudience = 'Target audience is required';
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -119,13 +131,13 @@ export function SubmissionPage() {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-slate-900 mb-3 flex justify-center items-center gap-2">
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-3 flex justify-center items-center gap-2">
             Validate Your Idea <Zap className="w-6 h-6 text-yellow-500" />
           </h1>
-          <p className="text-slate-600">Provide details about your project to get a comprehensive AI analysis.</p>
+          <p className="text-slate-600 dark:text-slate-400">Provide details about your project to get a comprehensive AI analysis.</p>
         </div>
 
-        <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.06)] bg-white/90 backdrop-blur-sm relative z-10 overflow-hidden ring-1 ring-slate-200/50">
+        <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.06)] bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm relative z-10 overflow-hidden ring-1 ring-slate-200/50 dark:ring-slate-700/50">
           {/* Top highlight bar */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-primary-500 to-blue-500"></div>
           
@@ -153,7 +165,7 @@ export function SubmissionPage() {
                       key={chip}
                       type="button"
                       onClick={() => handleChipClick(chip)}
-                      className="text-xs px-3 py-1.5 rounded-full bg-slate-100/80 text-slate-600 hover:bg-primary-50 hover:text-primary-600 border border-slate-200/50 hover:border-primary-200 transition-all hover:scale-105 active:scale-95"
+                      className="text-xs px-3 py-1.5 rounded-full bg-slate-100/80 dark:bg-slate-700/80 text-slate-600 dark:text-slate-300 hover:bg-primary-50 dark:hover:bg-primary-900/30 hover:text-primary-600 dark:hover:text-primary-400 border border-slate-200/50 dark:border-slate-600/50 hover:border-primary-200 dark:hover:border-primary-700 transition-all hover:scale-105 active:scale-95"
                     >
                       {chip}
                     </button>
@@ -172,20 +184,20 @@ export function SubmissionPage() {
                     error={errors.description}
                     className="transition-all duration-300 focus:shadow-[0_0_15px_rgba(99,102,241,0.15)]"
                   />
-                  <div className={`absolute bottom-3 right-3 text-xs font-medium px-2 py-0.5 rounded-md ${formData.description.length >= MAX_CHARS ? 'bg-red-50 text-red-500' : 'bg-slate-100 text-slate-500'}`}>
+                  <div className={`absolute bottom-3 right-3 text-xs font-medium px-2 py-0.5 rounded-md ${formData.description.length >= MAX_CHARS ? 'bg-red-50 dark:bg-red-900/30 text-red-500' : 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400'}`}>
                     {formData.description.length}/{MAX_CHARS}
                   </div>
                 </div>
 
                 {/* Live Strength Indicator */}
-                <div className="mt-4 bg-slate-50 border border-slate-100 rounded-lg p-3">
+                <div className="mt-4 bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700 rounded-lg p-3">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-xs font-semibold text-slate-500 flex items-center gap-1.5 uppercase tracking-wide">
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1.5 uppercase tracking-wide">
                       <Activity className="w-3.5 h-3.5" /> Idea Strength
                     </span>
                     <span className={`text-xs font-bold ${strength.text}`}>{strength.label}</span>
                   </div>
-                  <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                  <div className="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
                     <motion.div 
                       className={`h-full rounded-full ${strength.color}`}
                       initial={{ width: 0 }}

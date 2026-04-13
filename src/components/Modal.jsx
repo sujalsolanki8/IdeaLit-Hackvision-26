@@ -21,7 +21,7 @@ export function Modal({ isOpen, onClose, title, children }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-slate-900/60 dark:bg-black/70 backdrop-blur-sm z-50"
           />
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
             <motion.div
@@ -29,13 +29,13 @@ export function Modal({ isOpen, onClose, title, children }) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", duration: 0.5, bounce: 0.3 }}
-              className="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col pointer-events-auto"
+              className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl dark:shadow-black/40 w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col pointer-events-auto border dark:border-slate-700/60"
             >
-              <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/50">
-                <h2 className="text-lg font-semibold text-slate-800">{title}</h2>
+              <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/50">
+                <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">{title}</h2>
                 <button 
                   onClick={onClose}
-                  className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors"
+                  className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>

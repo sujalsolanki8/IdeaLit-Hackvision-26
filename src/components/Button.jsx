@@ -13,9 +13,9 @@ export function Button({
   
   const variants = {
     primary: "bg-primary-600 text-white hover:bg-primary-700 shadow-[0_4px_14px_0_rgba(34,197,94,0.39)] hover:shadow-[0_6px_20px_rgba(34,197,94,0.23)]",
-    secondary: "bg-slate-100 text-slate-900 hover:bg-slate-200 border border-slate-200 shadow-sm",
-    outline: "border-2 border-slate-200 bg-white/50 hover:bg-slate-50 text-slate-900 hover:border-slate-300 backdrop-blur-sm shadow-sm",
-    ghost: "bg-transparent hover:bg-slate-100 text-slate-700 hover:text-slate-900",
+    secondary: "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 shadow-sm",
+    outline: "border-2 border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600 backdrop-blur-sm shadow-sm",
+    ghost: "bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100",
     gradient: "bg-gradient-to-r from-primary-600 to-teal-500 text-white shadow-[0_4px_14px_0_rgba(20,184,166,0.39)] hover:shadow-[0_6px_20px_rgba(20,184,166,0.23)] border-none"
   };
   

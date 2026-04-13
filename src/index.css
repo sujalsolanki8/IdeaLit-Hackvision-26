@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Dancing+Script:wght@700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +6,11 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 font-sans antialiased min-h-screen relative overflow-x-hidden;
+    @apply bg-slate-50 text-slate-900 font-sans antialiased min-h-screen relative overflow-x-hidden transition-colors duration-300;
+  }
+
+  .dark body {
+    @apply bg-[#050508] text-slate-100;
   }
   
   body::before {
@@ -54,4 +58,74 @@
 /* Base modal animations */
 .no-scroll {
   overflow: hidden;
+}
+
+/* Typing cursor blink */
+@keyframes idealit-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Splash Screen ─────────────────────────────────────────── */
+.sl-line1-stroke {
+  stroke-dasharray: 5000;
+  stroke-dashoffset: 5000;
+  animation: sl-write 2.4s cubic-bezier(0.4, 0, 0.3, 1) 0.4s forwards;
+}
+.sl-line2-stroke {
+  stroke-dasharray: 5000;
+  stroke-dashoffset: 5000;
+  animation: sl-write 2.1s cubic-bezier(0.4, 0, 0.3, 1) 1.7s forwards;
+}
+.sl-line1-fill {
+  opacity: 0;
+  animation: sl-fill-in 0.6s ease-out 2.6s forwards;
+}
+.sl-line2-fill {
+  opacity: 0;
+  animation: sl-fill-in 0.6s ease-out 3.6s forwards;
+}
+@keyframes sl-write {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes sl-fill-in {
+  from { opacity: 0; }
+  to   { opacity: 0.88; }
+}
+
+/* ── Floating Particles ────────────────────────────────────── */
+/* --drift is set per-particle via inline style */
+@keyframes particle-fall {
+  0%   { transform: translateY(0)      translateX(0); }
+  25%  { transform: translateY(25vh)   translateX(var(--drift)); }
+  50%  { transform: translateY(50vh)   translateX(0); }
+  75%  { transform: translateY(75vh)   translateX(calc(var(--drift) * -0.6)); }
+  100% { transform: translateY(110vh)  translateX(0); }
+}
+
+/* ── Testimonials Auto-Scroll ──────────────────────────────── */
+@keyframes testimonials-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 1.5rem)); }
+}
+
+.testimonials-track {
+  animation: testimonials-scroll 65s linear infinite;
+  will-change: transform;
+}
+
+/* Pause the scroll when hovering anywhere over the track */
+.testimonials-track:hover {
+  animation-play-state: paused;
+}
+
+/* Card hover: lift + scale + shadow */
+.testimonial-card {
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.testimonial-card:hover {
+  transform: translateY(-4px) scale(1.035);
+  box-shadow: 0 12px 48px -8px rgba(0, 0, 0, 0.12),
+              0 4px 16px -4px rgba(0, 0, 0, 0.08);
 }

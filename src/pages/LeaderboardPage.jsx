@@ -72,20 +72,20 @@ export function LeaderboardPage() {
     <div className="container mx-auto px-4 py-12 max-w-4xl">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
-          <h1 className="text-4xl font-bold text-slate-900 flex items-center gap-3">
+          <h1 className="text-4xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
             <Trophy className="w-10 h-10 text-yellow-500" /> Leaderboard
           </h1>
-          <p className="text-slate-500 mt-2 text-lg">Discover and upvote the top validated ideas from the community.</p>
+          <p className="text-slate-500 dark:text-slate-400 mt-2 text-lg">Discover and upvote the top validated ideas from the community.</p>
         </motion.div>
         
         <motion.div 
           initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
-          className="flex bg-slate-100 p-1.5 rounded-xl self-start md:self-auto border border-slate-200 shadow-inner"
+          className="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl self-start md:self-auto border border-slate-200 dark:border-slate-700 shadow-inner"
         >
           <button
             onClick={() => setSortBy('trending')}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
-              sortBy === 'trending' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-800'
+              sortBy === 'trending' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
             }`}
           >
             <Flame className={`w-4 h-4 ${sortBy === 'trending' ? 'text-orange-500' : ''}`} /> Trending
@@ -93,7 +93,7 @@ export function LeaderboardPage() {
           <button
             onClick={() => setSortBy('top')}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
-              sortBy === 'top' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-800'
+              sortBy === 'top' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
             }`}
           >
             <Star className={`w-4 h-4 ${sortBy === 'top' ? 'text-yellow-500' : ''}`} /> Top Rated
@@ -118,16 +118,16 @@ export function LeaderboardPage() {
                   <span className="text-xs font-bold text-slate-400">#{index + 1}</span>
                 </div>
 
-                <div className="hidden sm:flex flex-shrink-0 text-3xl font-extrabold text-slate-200 w-10 justify-center">
+                <div className="hidden sm:flex flex-shrink-0 text-3xl font-extrabold text-slate-200 dark:text-slate-700 w-10 justify-center">
                   #{index + 1}
                 </div>
                 
                 <div className="flex-grow min-w-0 pr-4">
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-primary-700 transition-colors">{idea.title}</h3>
-                  <p className="text-sm text-slate-500 mt-1 line-clamp-1">{idea.description}</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">{idea.title}</h3>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 line-clamp-1">{idea.description}</p>
                   <div className="flex flex-wrap gap-2 mt-3">
                     {idea.tags.map(tag => (
-                      <span key={tag} className="px-2.5 py-1 bg-slate-100 group-hover:bg-primary-50 text-slate-600 group-hover:text-primary-700 text-xs rounded-md font-semibold transition-colors border border-slate-200/50">
+                      <span key={tag} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-700 group-hover:bg-primary-50 dark:group-hover:bg-primary-900/30 text-slate-600 dark:text-slate-300 group-hover:text-primary-700 dark:group-hover:text-primary-400 text-xs rounded-md font-semibold transition-colors border border-slate-200/50 dark:border-slate-600/50">
                         {tag}
                       </span>
                     ))}
@@ -136,21 +136,20 @@ export function LeaderboardPage() {
 
                 <div className="flex items-center justify-between sm:justify-end gap-6 sm:gap-8 flex-shrink-0 mt-4 sm:mt-0 pt-4 sm:pt-0 border-t sm:border-t-0 border-slate-100">
                   <div className="text-center">
-                    <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Score</div>
+                    <div className="text-xs text-slate-400 dark:text-slate-500 font-semibold uppercase tracking-wider mb-1">Score</div>
                     <div className={`text-2xl font-bold ${idea.score >= 90 ? 'text-emerald-500' : idea.score >= 80 ? 'text-amber-500' : 'text-slate-700'}`}>
                       {idea.score}
                     </div>
                   </div>
                   
                   <button 
-                    className="flex flex-col items-center p-2.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-colors z-10"
+                    className="flex flex-col items-center p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 border border-transparent hover:border-slate-200 dark:hover:border-slate-600 transition-colors z-10"
                     onClick={(e) => {
                       e.stopPropagation();
-                      // Real app: trigger upvote API
                     }}
                   >
                     <ChevronUp className="w-6 h-6 text-slate-400 hover:text-primary-500 transition-colors" />
-                    <span className="text-sm font-bold text-slate-700">{idea.upvotes}</span>
+                    <span className="text-sm font-bold text-slate-700 dark:text-slate-300">{idea.upvotes}</span>
                   </button>
                   
                   <div className="hidden sm:flex text-slate-300 group-hover:text-primary-400 transition-colors group-hover:translate-x-1 duration-300">
@@ -171,40 +170,40 @@ export function LeaderboardPage() {
         {selectedIdea && (
           <div className="space-y-8">
             <div>
-              <h2 className="text-2xl font-bold text-slate-900 mb-2">{selectedIdea.title}</h2>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{selectedIdea.title}</h2>
               <div className="flex flex-wrap gap-2 mb-4">
                 {selectedIdea.tags.map(tag => (
-                  <span key={tag} className="px-2.5 py-1 bg-slate-100 text-slate-600 text-xs rounded-md font-semibold">
+                  <span key={tag} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded-md font-semibold">
                     {tag}
                   </span>
                 ))}
               </div>
-              <p className="text-slate-700 leading-relaxed text-lg bg-slate-50 p-4 rounded-xl border border-slate-100">
+              <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-lg bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
                 {selectedIdea.description}
               </p>
             </div>
 
             <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white border border-slate-200 rounded-xl p-4 text-center">
-                <div className="text-sm text-slate-500 font-semibold mb-1">Feasibility</div>
+              <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 text-center">
+                <div className="text-sm text-slate-500 dark:text-slate-400 font-semibold mb-1">Feasibility</div>
                 <div className={`text-2xl font-bold ${selectedIdea.score >= 90 ? 'text-emerald-500' : 'text-amber-500'}`}>{selectedIdea.score}</div>
               </div>
-              <div className="bg-white border border-slate-200 rounded-xl p-4 text-center">
-                <div className="text-sm text-slate-500 font-semibold mb-1">Market</div>
+              <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 text-center">
+                <div className="text-sm text-slate-500 dark:text-slate-400 font-semibold mb-1">Market</div>
                 <div className="text-2xl font-bold text-blue-500">{selectedIdea.market_score}</div>
               </div>
-              <div className="bg-white border border-slate-200 rounded-xl p-4 text-center">
-                <div className="text-sm text-slate-500 font-semibold mb-1">Innovation</div>
+              <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 text-center">
+                <div className="text-sm text-slate-500 dark:text-slate-400 font-semibold mb-1">Innovation</div>
                 <div className="text-2xl font-bold text-purple-500">{selectedIdea.innovation_score}</div>
               </div>
             </div>
 
             <div className="space-y-4">
-              <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                <h4 className="flex items-center gap-2 font-semibold text-slate-800 mb-2 text-sm uppercase tracking-wide">
+              <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
+                <h4 className="flex items-center gap-2 font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm uppercase tracking-wide">
                   <Target className="w-4 h-4 text-blue-500" /> Target Audience
                 </h4>
-                <p className="text-slate-600 pl-6">{selectedIdea.target_audience}</p>
+                <p className="text-slate-600 dark:text-slate-400 pl-6">{selectedIdea.target_audience}</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
